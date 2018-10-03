@@ -23,6 +23,7 @@ function changeImage(node) {
 }
 
 function searchImagesEvent() {
+    const reg;
     const searchBox = document.getElementById('search-box');
 
     searchBox.addEventListener('keyup', () => {
