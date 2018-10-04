@@ -23,19 +23,30 @@ function changeImage(node) {
 }
 
 function searchImagesEvent() {
-    const reg;
     const searchBox = document.getElementById('search-box');
 
     searchBox.addEventListener('keyup', () => {
+        const regex = new RegExp(searchBox.value.toLowerCase(), 'gi');
         if (searchBox.value.length > 0) {
             const thumbs = document.querySelectorAll('li.list-group-item img');      
             for (let i = 0; i < thumbs.length; i++) {
                 const fileUrl = url.parse(thumbs[i].src);
                 const fileName = path.basename(fileUrl.pathname);
-                console.log(fileName);
-                
+                // console.log(fileName);
+                if (fileName.match(regex)) {
+                    thumbs[i].parentNode.classList.remove('hidden');
+                }
+                else {
+                    thumbs[i].parentNode.classList.add('hidden');
+                }  
             }
+            selectFirstImage();
         }
         
-    })
+    });
+}
+
+function selectFirstImage() {
+    const image = document.querySelector('li.list-group-item:not(.hidden)');
+    changeImage(image);
 }
